@@ -4,7 +4,15 @@ import { getAllPostIds, getPostData } from "../../lib/posts";
 import utilStyles from "../../styles/utils.module.css"
 import Head from "next/head";
 
-export default function Post({ postData }) {
+export default function Post({
+  postData
+}: {
+  postData: {
+    title: string
+    date: string
+    contentHtml: string
+  }
+}) {
   // NOTE: これ、React コンポーネント
   return (
     <Layout>
@@ -37,7 +45,7 @@ export async function getStaticPaths() {
 //  プロジェクト内で統一しているところが多い
 export async function getStaticProps({ params }) {
   // Fetch necessary data for the blog post using params.id
-  const postData = await getPostData(params.id)
+  const postData = await getPostData(params.id as string)
   return {
     props: {
       postData
